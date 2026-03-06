@@ -1,16 +1,21 @@
 package Java_TAE_Project_1;
 
 public class PartTimeTeacher extends Teacher{
-    public PartTimeTeacher(String name, int age, int years_of_experience, int hours_per_week) {
-        super(name, age, years_of_experience, hours_per_week);
-        calculateSalary(years_of_experience,hours_per_week);
+
+    private int hours_per_week;
+
+    public PartTimeTeacher(String name, int age, int hours_per_week) {
+        super(name, age);
+        this.hours_per_week = hours_per_week;
+
+        calculateSalary();
     }
 
     @Override
-    public void calculateSalary(int years_of_experience, int hours_per_week) {
+    public void calculateSalary() {
         double salary;
 
-        if ((years_of_experience == 0) || (hours_per_week == 0) ){
+        if (hours_per_week == 0){
             //If the teacher has 0 years of experience or works 0 hours per week, we only pay them the base salary.
             salary = getBASEPAY();
         }
@@ -20,5 +25,13 @@ public class PartTimeTeacher extends Teacher{
         }
 
         setSalary(salary);
+    }
+
+    public int getHoursPerWeek() {
+        return hours_per_week;
+    }
+
+    public void setHoursPerWeek(int hours_per_week) {
+        this.hours_per_week = hours_per_week;
     }
 }

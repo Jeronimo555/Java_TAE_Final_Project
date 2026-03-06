@@ -1,16 +1,19 @@
 package Java_TAE_Project_1;
 
 public class FullTimeTeacher extends Teacher{
-    public FullTimeTeacher(String name, int age, int years_of_experience, int hours_per_week) {
-        super(name, age, years_of_experience, hours_per_week);
-        calculateSalary(years_of_experience,hours_per_week);
+
+    private int years_of_experience;
+
+    public FullTimeTeacher(String name, int age, int years_of_experience) {
+        super(name, age);
+        calculateSalary();
     }
 
     @Override
-    public void calculateSalary(int years_of_experience, int hours_per_week) {
+    public void calculateSalary() {
         double salary;
 
-        if ((years_of_experience == 0) || (hours_per_week == 0) ){
+        if (years_of_experience == 0){
             //If the teacher has 0 years of experience or works 0 hours per week, we only pay them the base salary.
             salary = getBASEPAY();
         }
@@ -22,5 +25,11 @@ public class FullTimeTeacher extends Teacher{
         setSalary(salary);
     }
 
+    public int getYears_of_experience() {
+        return years_of_experience;
+    }
 
+    public void setYears_of_experience(int years_of_experience) {
+        this.years_of_experience = years_of_experience;
+    }
 }
