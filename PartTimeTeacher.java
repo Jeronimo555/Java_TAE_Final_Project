@@ -17,11 +17,11 @@ public class PartTimeTeacher extends Teacher{
 
         if (hours_per_week == 0){
             //If the teacher has 0 years of experience or works 0 hours per week, we only pay them the base salary.
-            salary = getBASEPAY();
+            salary = getBasePay();
         }
         else{
             //base salary multiplied by the teacher's active hours per week.
-            salary = getBASEPAY() * hours_per_week;
+            salary = getBasePay() * hours_per_week;
         }
 
         setSalary(salary);

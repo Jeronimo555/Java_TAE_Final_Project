@@ -22,7 +22,7 @@ public abstract class Teacher extends Person{
         this.salary = salary;
     }
 
-    public double getBASEPAY() {
+    public double getBasePay() {
         return BASE_PAY;
     }
 }

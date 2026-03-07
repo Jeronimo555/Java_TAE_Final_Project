@@ -15,26 +15,34 @@ public class University {
     }
 
 
-    public void createStudent(String name, int age){
+    public Student createStudent(String name, int age){
         String uniqueID = UUID.randomUUID().toString();
 
         Student student = new Student(uniqueID, name,age);
         getListOfStudents().add(student);
+
+        return student;
     }
 
-    public void createClass(String name, Teacher teacher, String classroom){
+    public Class createClass(String name, Teacher teacher, String classroom){
         Class new_class = new Class(name,teacher,classroom);
         getListOfClasses().add(new_class);
+
+        return new_class;
     }
 
-    public void createPartTimeTeacher(String name, int age, int hours_per_week){
+    public Teacher createPartTimeTeacher(String name, int age, int hours_per_week){
         PartTimeTeacher teacher = new PartTimeTeacher(name,age,hours_per_week);
         getListOfTeachers().add(teacher);
+
+        return teacher;
     }
 
-    public void createFullTimeTeacher(String name, int age, int years_of_experience){
+    public Teacher  createFullTimeTeacher(String name, int age, int years_of_experience){
         FullTimeTeacher teacher = new FullTimeTeacher(name,age,years_of_experience);
         getListOfTeachers().add(teacher);
+
+        return teacher;
     }
 
     public void printTeachers(){
@@ -46,6 +54,16 @@ public class University {
             System.out.println("Teacher status: " + teacher.toString());
             System.out.println("Age: " + teacher.getAge());
             System.out.println("Salary: " + teacher.getSalary() + "$" + "\n");
+        }
+    }
+
+    public void printStudents(){
+        int list_length = getListOfStudents().size();
+
+        for (byte i = 0; i<list_length;i++){
+            Student student = getListOfStudents().get(i);
+            System.out.println("Student name: " + student.getName());
+            System.out.println("Age: " + student.getAge());
         }
     }
 
