@@ -89,6 +89,7 @@ public class University {
         //I had to ask Gemini for help here. If I just did another for loop the complexity would reach O(n^2),
         //which would make it highly inefficient. Hopefully a normal for loop would also not count as O(n^2)
         //since this code only runs once.
+        System.out.println("Students: \n");
         university_class.getListOfStudents().forEach(
                 student -> System.out.println(" - " + student.getName())
         );
@@ -102,7 +103,31 @@ public class University {
             }
         }
 
-        System.out.println("La clase con ese nombre no exite!");
+        System.out.println("That class doesn't exist.");
+        return null;
+    }
+
+    public Student findStudent(String student_name) {
+
+        for (Student student : getListOfStudents()) {
+            if (student.getName().equals(student_name)) {
+                return student;
+            }
+        }
+
+        System.out.println("That student doesn't exist.");
+        return null;
+    }
+
+    public Teacher findTeacher(String teacher_name) {
+
+        for (Teacher teacher : getListOfTeachers()) {
+            if (teacher.getName().equals(teacher_name)) {
+                return teacher;
+            }
+        }
+
+        System.out.println("That teacher doesn't exist.");
         return null;
     }
 

@@ -52,8 +52,6 @@ public class Main {
 
         boolean running = true;
 
-
-
         while(running){
 
             printMenu();
@@ -70,16 +68,16 @@ public class Main {
                     createNewStudentMenu(university);
                     break;
                 case "d":
+                    createClassWithExistingData(university);
                     break;
                 case "e":
+                    listClassPerStudent(university);
                     break;
                 case "f":
                     running = false;
                     break;
             }
-
         }
-        university.printStudents();
     }
 
     public static void printMenu(){
@@ -93,13 +91,12 @@ public class Main {
         System.out.print("Select an option: ");
     }
 
-
     public static void printClassSubmenu(University university){
 
         university.printAllClasses();
 
         System.out.print("\nEnter the Class name to see details (or 0 to go back): ");
-        String class_name = scanner.nextLine().toLowerCase();
+        String class_name = scanner.nextLine();
 
         if (class_name.equals("0")){
             return;
@@ -115,16 +112,88 @@ public class Main {
         System.out.print("Enter Student Age: ");
         int age = Integer.parseInt(scanner.nextLine());
         System.out.print("Enter Class name to add student to: ");
-        String class_name = scanner.nextLine().toLowerCase();
+        String class_name = scanner.nextLine();
 
         Student new_student = university.createStudent(name,age);
         Class university_class = university.findClass(class_name);
 
         if (university_class != null){
             university_class.addStudentToClass(new_student);
+            System.out.println("The student was successfully created and added to the " + class_name + " class!");
         }
 
     }
 
+    public static void createClassWithExistingData(University university){
 
+
+        System.out.print("Enter Class Name: ");
+        String class_name = scanner.nextLine();
+
+
+        if (university.findClass(class_name) != (null)){
+            System.out.println("That class already exists.");
+            return;
+        }
+
+        //Helps the creation process.
+        university.printTeachers();
+
+        System.out.print("Enter An existing teacher: ");
+        String teacher_name = scanner.nextLine();
+        Teacher teacher = university.findTeacher(teacher_name);
+
+        if (teacher == (null)){
+            return;
+        }
+
+        System.out.print("Type the name of a classroom: ");
+        String classroom = scanner.nextLine();
+
+        Class new_class = new Class(class_name,teacher,classroom);
+
+        //Helps the creation process.
+        university.printStudents();
+
+        System.out.println("How many students do you wish to add?");
+        int amount_of_students = Integer.parseInt(scanner.nextLine());
+
+        if (amount_of_students < 0){
+            System.out.println("Invalid amount!");
+            return;
+        }
+
+        for (byte i = 0; i<amount_of_students;i++) {
+
+            System.out.print("Enter Student Name: ");
+            String name = scanner.nextLine();
+            Student student = university.findStudent(name);
+
+            if (student == null) {
+                continue;
+            }
+
+            new_class.addStudentToClass(student);
+        }
+
+        university.getListOfClasses().add(new_class);
+    }
+
+    public static void listClassPerStudent(University university){
+        System.out.print("Enter Student Name: ");
+        String name = scanner.nextLine();
+        Student student = university.findStudent(name);
+
+        if (student == null) {
+            return;
+        }
+
+        System.out.println("The student is currently enrolled in: ");
+
+        for (Class university_class : university.getListOfClasses()){
+            if (university_class.getListOfStudents().contains(student)){
+                System.out.println("-" + university_class.getName());
+            }
+        }
+    }
 }
